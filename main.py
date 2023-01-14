@@ -1,25 +1,21 @@
 from flask import Flask, render_template
-import requests
-import random
+
+import client
 
 app = Flask(__name__)
 
 
 @app.route('/')
 def homepage():
-    response = requests.get("https://api.themoviedb.org/3/movie/popular?api_key=34b3fbd4dbabd957d6d90c188a2273ef")
-    movies = response.json()
-    ids = []
-    titles = []
-    posters = []
-    for i in range(8):
-        randomNumber = random.randint(0, 19)
-        while movies['results'][randomNumber]['id'] in ids:
-            randomNumber = random.randint(0, 19)
-        ids.append(movies['results'][randomNumber]['id'])
-        titles.append(movies['results'][randomNumber]['title'])
-        posters.append(movies['results'][randomNumber]['poster_path'])
-    return render_template("index.html", ids = ids, titles = titles, posters = posters)
+    return render_template("homepage.html", movies=client.get_movies())
+
+
+@app.context_processor
+def utility_processor():
+    def tmdb_image_url(path, size="w780"):
+        return client.get_poster_url(path, size)
+
+    return {"tmdb_image_url": tmdb_image_url}
 
 
 if __name__ == '__main__':
