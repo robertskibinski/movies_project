@@ -7,8 +7,15 @@ app = Flask(__name__)
 
 @app.route('/')
 def homepage():
-    return render_template("homepage.html", movies=client.get_movies())
+    return render_template("homepage.html", movies=client.get_movies("popular"))
+@app.route('/<list_type>')
+def list_type(list_type):
+    return render_template("homepage.html", movies=client.get_movies(list_type))
 
+@app.route("/movie/<movie_id>")
+def movie_details(movie_id):
+    details = client.get_movie(movie_id)
+    return render_template("movie_details.html", movie=details)
 
 @app.context_processor
 def utility_processor():
