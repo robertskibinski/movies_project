@@ -9,10 +9,10 @@
     </div>
     <div class="col-lg-12 mb-4">
         <div class="btn-group" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-outline-info" onclick="window.location.href='{{ url_for('homepage', list_type="top_rated") }}'">top_rated</button>
-            <button type="button" class="btn btn-outline-info" onclick="window.location.href='{{ url_for('homepage', list_type="popular") }}'">popular</button>
-            <button type="button" class="btn btn-outline-info" onclick="window.location.href='{{ url_for('homepage', list_type="upcoming") }}'">upcoming</button>
-            <button type="button" class="btn btn-outline-info" onclick="window.location.href='{{ url_for('homepage', list_type="now_playing") }}'">now_playing</button>
+            <button type="button" class="btn btn-outline-info" onclick="window.location.href='{{ url_for('homepage', list_type="top_rated") }}'">Najlepsze</button>
+            <button type="button" class="btn btn-outline-info" onclick="window.location.href='{{ url_for('homepage', list_type="popular") }}'">Popularne</button>
+            <button type="button" class="btn btn-outline-info" onclick="window.location.href='{{ url_for('homepage', list_type="upcoming") }}'">Nadchodzące</button>
+            <button type="button" class="btn btn-outline-info" onclick="window.location.href='{{ url_for('homepage', list_type="now_playing") }}'">Teraz wyświetlane</button>
         </div>
         </div>
         {% for movie in movies %}
