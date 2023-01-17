@@ -18,8 +18,11 @@ def get_movies_list(list_type):
 
 
 
+
 def get_movies(list_type):
-    response = requests.get("https://api.themoviedb.org/3/movie/"+list_type+"?api_key=34b3fbd4dbabd957d6d90c188a2273ef")
+    endpoint = f"https://api.themoviedb.org/3/movie/{list_type}?api_key=34b3fbd4dbabd957d6d90c188a2273ef"
+    response = requests.get(endpoint)
+    response.raise_for_status()
     json_response = response.json()
     movies = []
     ids = []

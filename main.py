@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 
 import client
 
@@ -7,10 +7,13 @@ app = Flask(__name__)
 
 @app.route('/')
 def homepage():
-    return render_template("homepage.html", movies=client.get_movies("popular"))
-@app.route('/<list_type>')
-def list_type(list_type):
-    return render_template("homepage.html", movies=client.get_movies(list_type))
+    lists = ["popular", "top_rated", "upcoming", "now_playing"]
+    selected_list = request.args.get('list_type', "popular")
+    if selected_list not in lists:
+        selected_list = "popular"
+    movies = client.get_movies(list_type=selected_list)
+
+    return render_template("homepage.html", movies=movies, current_list=selected_list)
 
 @app.route("/movie/<movie_id>")
 def movie_details(movie_id):
