@@ -18,13 +18,9 @@ def get_movies(list_type):
     response.raise_for_status()
     json_response = response.json()
     movies = []
-    ids = []
-    for i in range(8):
-        random_number = random.randint(0, 19)
-        while random_number in ids:
-            random_number = random.randint(0, 19)
-        ids.append(random_number)
-        data = json_response['results'][random_number]
+    random_ids = random.sample(range(0, 19), 8)
+    for i in random_ids:
+        data = json_response["results"][i]
         movie = Movie(id=data["id"], title=data["title"], poster=data["poster_path"])
         movies.append(movie)
     return movies
